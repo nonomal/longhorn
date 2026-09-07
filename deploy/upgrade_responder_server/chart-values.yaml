@@ -23,7 +23,9 @@ resources:
     memory: 256Mi
 
 flags:
-  scarfEndpoint: "https://longhorn.gateway.scarf.sh/{version}"
+  scarfEndpoint: 
+    - "https://longhorn.gateway.scarf.sh/{version}"
+    - "https://longhorn.gateway.scarf.sh/{version}/{longhornDistro}"
 
 # This configmap contains information about the latest release
 # of the application that is using this Upgrade Responder
@@ -81,12 +83,27 @@ configMap:
           ]
         },
         {
-          "name": "v1.10.0",
-          "releaseDate": "2025-09-25T00:00:00Z",
+          "name": "v1.10.2",
+          "releaseDate": "2026-01-28T00:00:00Z",
           "tags": [
+            "stable"
+          ]
+        },
+        {
+          "name": "v1.11.3",
+          "releaseDate": "2026-07-01T00:00:00Z",
+          "tags": [
+            "stable",
+          ]
+        },
+        {
+          "name": "v1.12.1",
+          "releaseDate": "2026-08-14T00:00:00Z",
+          "tags": [
+            "stable",
             "latest"
           ]
-        }    
+        }
       ]
     }
   requestSchema: |-
@@ -271,6 +288,14 @@ configMap:
         "longhornSettingV2DataEngine": {
           "dataType": "string",
           "maxLen": 200
+        },
+        "longhornV2DataEngineHugepageEnabled": {
+          "dataType": "string",
+          "maxLen": 200
+        },
+        "longhornDistro": {
+          "dataType": "string",
+          "maxLen": 200
         }
       },
       "extraFieldInfoSchema": {
@@ -296,6 +321,27 @@ configMap:
           "dataType": "float"
         },
         "longhornDiskFilesystemCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverAioCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverNvmeCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverVirtioScsiCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverVirtioBlkCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverVirtioPciCount": {
+          "dataType": "float"
+        },
+        "longhornV2DataEngineCpuCores": {
+          "dataType": "float"
+        },
+        "longhornV2DataEngineHugepageSize": {
           "dataType": "float"
         },
         "longhornInstanceManagerAverageCpuUsageMilliCores": {
@@ -402,6 +448,51 @@ configMap:
           "dataType": "float"
         },
         "longhornVolumeAccessModeUnknownCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeDataEngineV1Count": {
+          "dataType": "float"
+        },
+        "longhornVolumeDataEngineV2Count": {
+          "dataType": "float"
+        },
+        "longhornVolumeDataEngineAllCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSizeLessThan1GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize1To2GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize2To5GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize5To10GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize10To20GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize20To50GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize50To100GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize100To200GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize200To500GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize500GiBTo1TiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize1To2TiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSizeGt2TiBCount": {
           "dataType": "float"
         },
         "longhornVolumeAverageActualSizeBytes": {

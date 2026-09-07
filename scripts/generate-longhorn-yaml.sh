@@ -10,7 +10,7 @@ DEPLOY_YAML_TMP="$PRJ_DIR/deploy/longhorn.yaml.tmp"
 NAMESPACE=${NAMESPACE:-longhorn-system}
 
 if ! command -v helm &> /dev/null || ! helm version --short | grep -q "v3\|v4"; then
-  echo "Please install helm v4 first before generating $DEPLOY_YAML!"
+  echo "Please install helm v4 (recommended) or v3 (backward compatible) before generating $DEPLOY_YAML!"
   exit 1
 fi
 
@@ -28,9 +28,14 @@ EOD
     OKD_ENABLED_FLAG="--set openshift.enabled=true"
   fi
 
-  helm template longhorn "$CHART_DIR" --namespace "$NAMESPACE" $OKD_ENABLED_FLAG --create-namespace --no-hooks >>"$DEPLOY_YAML"
+  helm template longhorn "$CHART_DIR" \
+    --namespace "$NAMESPACE" \
+    $OKD_ENABLED_FLAG \
+    --create-namespace \
+    --no-hooks \
+    --kube-version 1.34.0 \
+    >>"$DEPLOY_YAML"
   < "$DEPLOY_YAML" grep -v 'helm.sh\|app.kubernetes.io/managed-by: Helm' | grep -v "helm.sh/chart:" > "$DEPLOY_YAML_TMP"
   mv "$DEPLOY_YAML_TMP" "$DEPLOY_YAML"
 
 done
-

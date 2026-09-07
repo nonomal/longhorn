@@ -74,6 +74,7 @@ rules:
   - backups
   - backuptargets
   - backupvolumes
+  - enginefrontends
   - engineimages
   - engines
   - instancemanagers
@@ -82,7 +83,10 @@ rules:
   - recurringjobs
   - replicas
   - settings
+  - shardgroups
+  - shards
   - sharemanagers
+  - snapshotgroups
   - snapshots
   - supportbundles
   - systembackups

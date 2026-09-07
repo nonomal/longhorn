@@ -31,7 +31,7 @@ wait_for_deployment() {
     fi
 
     elapsed_secs=$(($(date +%s) - ${start_time}))
-    if [[ ${elapsed_secs} -ge ${timeout_secs} ]]; then
+    if [[ ${elapsed_secs} -ge ${DEPLOYMENT_TIMEOUT_SEC} ]]; then
       echo "Timed out waiting for deployment ${deployment_name} to be running."
       exit 1
     fi
@@ -61,7 +61,9 @@ secret:
   influxDBUser: "root"
   influxDBPassword: "root"
 flags:
-  scarfEndpoint: "https://longhorn.gateway.scarf.sh/{version}"
+  scarfEndpoint:
+    - "https://longhorn.gateway.scarf.sh/{version}"
+    - "https://longhorn.gateway.scarf.sh/{version}/{longhornDistro}"  
 configMap:
   responseConfig: |-
     {
@@ -245,6 +247,14 @@ configMap:
         "longhornSettingV2DataEngine": {
           "dataType": "string",
           "maxLen": 200
+        },
+        "longhornV2DataEngineHugepageEnabled": {
+          "dataType": "string",
+          "maxLen": 200
+        },
+        "longhornDistro": {
+          "dataType": "string",
+          "maxLen": 200
         }
       },
       "extraFieldInfoSchema": {
@@ -270,6 +280,27 @@ configMap:
           "dataType": "float"
         },
         "longhornDiskFilesystemCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverAioCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverNvmeCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverVirtioScsiCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverVirtioBlkCount": {
+          "dataType": "float"
+        },
+        "longhornBlockTypeDiskDriverVirtioPciCount": {
+          "dataType": "float"
+        },
+        "longhornV2DataEngineCpuCores": {
+          "dataType": "float"
+        },
+        "longhornV2DataEngineHugepageSize": {
           "dataType": "float"
         },
         "longhornInstanceManagerAverageCpuUsageMilliCores": {
@@ -376,6 +407,51 @@ configMap:
           "dataType": "float"
         },
         "longhornVolumeAccessModeUnknownCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeDataEngineV1Count": {
+          "dataType": "float"
+        },
+        "longhornVolumeDataEngineV2Count": {
+          "dataType": "float"
+        },
+        "longhornVolumeDataEngineAllCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSizeLessThan1GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize1To2GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize2To5GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize5To10GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize10To20GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize20To50GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize50To100GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize100To200GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize200To500GiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize500GiBTo1TiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSize1To2TiBCount": {
+          "dataType": "float"
+        },
+        "longhornVolumeSizeGt2TiBCount": {
           "dataType": "float"
         },
         "longhornVolumeAverageActualSizeBytes": {
